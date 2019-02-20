@@ -7,24 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Globalizer.Code;
 
 namespace Globalizer.Forms
 {
-    public partial class SettingsWindow : Form
+    public partial class EditWindow : Form
     {
-        public SettingsWindow()
+        private readonly Project m_project;
+        public EditWindow(Project project)
         {
             InitializeComponent();
-        }
-
-        private void SettingsWindow_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BtnBrowseProject_Click(object sender, EventArgs e)
-        {
-
-        }
-    } // class SettingsWindow
+            this.m_project = project;
+        } // public constructor
+    } // EditWindow constructor
 } // namespace

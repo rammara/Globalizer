@@ -30,7 +30,7 @@
         {
             this.outerContainer = new System.Windows.Forms.ToolStripContainer();
             this.statusBar = new System.Windows.Forms.StatusStrip();
-            this.mnuMain = new System.Windows.Forms.MenuStrip();
+            this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.mnuProject = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuProjectNew = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuProjectOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,7 +43,7 @@
             this.outerContainer.BottomToolStripPanel.SuspendLayout();
             this.outerContainer.TopToolStripPanel.SuspendLayout();
             this.outerContainer.SuspendLayout();
-            this.mnuMain.SuspendLayout();
+            this.MainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // outerContainer
@@ -65,7 +65,7 @@
             // 
             // outerContainer.TopToolStripPanel
             // 
-            this.outerContainer.TopToolStripPanel.Controls.Add(this.mnuMain);
+            this.outerContainer.TopToolStripPanel.Controls.Add(this.MainMenuStrip);
             // 
             // statusBar
             // 
@@ -76,18 +76,17 @@
             this.statusBar.TabIndex = 0;
             this.statusBar.Text = "statusStrip1";
             // 
-            // menuMain
+            // MainMenuStrip
             // 
-            this.mnuMain.Dock = System.Windows.Forms.DockStyle.None;
-            this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MainMenuStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this.MainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuProject,
             this.mnuTools});
-            this.mnuMain.Location = new System.Drawing.Point(0, 0);
-            this.mnuMain.Name = "menuMain";
-            this.mnuMain.Size = new System.Drawing.Size(742, 24);
-            this.mnuMain.TabIndex = 0;
-            this.mnuMain.Text = "menuStrip1";
-            this.mnuMain.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuMain_ItemClicked);
+            this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.MainMenuStrip.Name = "MainMenuStrip";
+            this.MainMenuStrip.Size = new System.Drawing.Size(742, 24);
+            this.MainMenuStrip.TabIndex = 0;
+            this.MainMenuStrip.Text = "mnuMain";
             // 
             // mnuProject
             // 
@@ -108,6 +107,7 @@
             this.mnuProjectNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.mnuProjectNew.Size = new System.Drawing.Size(155, 22);
             this.mnuProjectNew.Text = "&New...";
+            this.mnuProjectNew.Click += new System.EventHandler(this.mnuProjectNew_Click);
             // 
             // mnuProjectOpen
             // 
@@ -115,6 +115,7 @@
             this.mnuProjectOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.mnuProjectOpen.Size = new System.Drawing.Size(155, 22);
             this.mnuProjectOpen.Text = "&Open...";
+            this.mnuProjectOpen.Click += new System.EventHandler(this.mnuProjectOpen_Click);
             // 
             // mnuProjectSave
             // 
@@ -122,12 +123,14 @@
             this.mnuProjectSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.mnuProjectSave.Size = new System.Drawing.Size(155, 22);
             this.mnuProjectSave.Text = "&Save";
+            this.mnuProjectSave.Click += new System.EventHandler(this.mnuProjectSave_Click);
             // 
             // mnuProjectSaveAs
             // 
             this.mnuProjectSaveAs.Name = "mnuProjectSaveAs";
             this.mnuProjectSaveAs.Size = new System.Drawing.Size(155, 22);
             this.mnuProjectSaveAs.Text = "Save &As...";
+            this.mnuProjectSaveAs.Click += new System.EventHandler(this.mnuProjectSaveAs_Click);
             // 
             // mnuProjectDelim1
             // 
@@ -140,21 +143,23 @@
             this.mnuProjectExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.mnuProjectExit.Size = new System.Drawing.Size(155, 22);
             this.mnuProjectExit.Text = "E&xit";
+            this.mnuProjectExit.Click += new System.EventHandler(this.mnuProjectExit_Click);
             // 
             // mnuTools
             // 
             this.mnuTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuToolsSettings});
             this.mnuTools.Name = "mnuTools";
-            this.mnuTools.Size = new System.Drawing.Size(48, 20);
+            this.mnuTools.Size = new System.Drawing.Size(47, 20);
             this.mnuTools.Text = "&Tools";
             // 
             // mnuToolsSettings
             // 
             this.mnuToolsSettings.Name = "mnuToolsSettings";
             this.mnuToolsSettings.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.mnuToolsSettings.Size = new System.Drawing.Size(150, 22);
+            this.mnuToolsSettings.Size = new System.Drawing.Size(152, 22);
             this.mnuToolsSettings.Text = "&Settings...";
+            this.mnuToolsSettings.Click += new System.EventHandler(this.mnuToolsSettings_Click);
             // 
             // MainWindow
             // 
@@ -163,7 +168,7 @@
             this.ClientSize = new System.Drawing.Size(742, 607);
             this.Controls.Add(this.outerContainer);
             this.IsMdiContainer = true;
-            this.MainMenuStrip = this.mnuMain;
+            this.MainMenuStrip = this.MainMenuStrip;
             this.Name = "MainWindow";
             this.Text = "String Refactoring";
             this.outerContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -172,8 +177,8 @@
             this.outerContainer.TopToolStripPanel.PerformLayout();
             this.outerContainer.ResumeLayout(false);
             this.outerContainer.PerformLayout();
-            this.mnuMain.ResumeLayout(false);
-            this.mnuMain.PerformLayout();
+            this.MainMenuStrip.ResumeLayout(false);
+            this.MainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -181,7 +186,7 @@
 
         private System.Windows.Forms.ToolStripContainer outerContainer;
         private System.Windows.Forms.StatusStrip statusBar;
-        private System.Windows.Forms.MenuStrip mnuMain;
+        private System.Windows.Forms.MenuStrip MainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem mnuProject;
         private System.Windows.Forms.ToolStripMenuItem mnuProjectNew;
         private System.Windows.Forms.ToolStripMenuItem mnuProjectOpen;
