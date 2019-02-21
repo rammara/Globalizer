@@ -8,9 +8,11 @@ namespace Globalizer.Code
 {
     public static class Globals
     {
-        public const string CSHARP_DEFAULT_PATTERN = @"""[^""\\]*(?:\\.[^""\\]*)*""";               //"(?=(^((?!///).)*$)).*((\".+? \")|('.+?')).*";
+        public const string CSHARP_DEFAULT_REGEX = @"""[^""\\]*(?:\\.[^""\\]*)*""";
         public const string CSHARP_DEFAULT_FILEMASK = "*.cs";
-        public static string CheckPattern { get; set; } = CSHARP_DEFAULT_PATTERN;
+        public static string StringRegExp { get; set; } = CSHARP_DEFAULT_REGEX;
         public static string FileSearchMask { get; set; } = CSHARP_DEFAULT_FILEMASK;
-    }
-}
+
+
+    } // Globals
+} // namespace

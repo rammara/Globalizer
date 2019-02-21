@@ -9,6 +9,14 @@ namespace Globalizer.Code
 {
     public class Literal
     {
+        public enum WorkStates
+        {
+            Unchanged,
+            Ignored,
+            WorkInProgress,
+            Completed
+        } // WorkStates
+
         public string Id { get; set; }
         public string FullPath { get; protected set; }
         public int LineNumber { get; protected set; }
@@ -16,7 +24,7 @@ namespace Globalizer.Code
         public int Length { get; protected set; }
         public string Value { get; protected set; }
         public CodeFile File { get; protected set; }
-        public string Substitution { get; set; }
+        public WorkStates WorkState { get; set; } = WorkStates.Unchanged;
         public bool IsInterpolated { get; protected set; }
         public Literal(string id, CodeFile file, int linenumber, Match match, bool interpolated)
         {
@@ -27,6 +35,7 @@ namespace Globalizer.Code
             this.LinePosition = match.Index;
             this.Value = match.Value;
             this.IsInterpolated = interpolated;
+            if (interpolated) this.WorkState = WorkStates.Ignored;
         } // Literal
 
     } // class Literal
