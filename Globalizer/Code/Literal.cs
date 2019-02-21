@@ -18,7 +18,6 @@ namespace Globalizer.Code
         } // WorkStates
 
         public string Id { get; set; }
-        public string FullPath { get; protected set; }
         public int LineNumber { get; protected set; }
         public int LinePosition { get; protected set; }
         public int Length { get; protected set; }
@@ -38,5 +37,16 @@ namespace Globalizer.Code
             if (interpolated) this.WorkState = WorkStates.Ignored;
         } // Literal
 
+        public Literal(string id, int line, int pos, int len, string value, bool interpolated)
+        {
+            this.Id = id;
+            this.LineNumber = line;
+            this.LinePosition = pos;
+            this.Length = len;
+            this.Value = value;
+            this.IsInterpolated = IsInterpolated;
+        } // Literal
+
+        public void SetOwner(CodeFile file) => this.File = file;
     } // class Literal
 } // namespace Stringrefactoring

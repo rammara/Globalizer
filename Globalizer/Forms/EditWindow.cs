@@ -160,5 +160,47 @@ namespace Globalizer.Forms
             }
             row.DefaultCellStyle = this.m_cellStyles[lit.WorkState];
         } // dgvEdit_CellEndEdit
+
+        private void EditWindow_Activated(object sender, EventArgs e)
+        {
+            ((MainWindow) this.MdiParent).ActiveProject = this.Project;
+        } // EditWindow_Activated
+
+        private void mnuSelectAll_Click(object sender, EventArgs e)
+        {
+            this.dgvEdit.SelectAll();
+        } // mnuSelectAll_Click
+
+        private void SetState(Literal.WorkStates state)
+        {
+            foreach (var r in this.dgvEdit.SelectedRows)
+            {
+                DataGridViewRow row = (DataGridViewRow)r;
+                Literal lit = (Literal)row.Tag;
+                lit.WorkState = state;
+                row.Cells[this.clnState.Index].Value = Enum.GetName(typeof(Literal.WorkStates), lit.WorkState);
+            } // foreach
+        } // SetState
+
+
+        private void mnuSetUnchanged_Click(object sender, EventArgs e)
+        {
+            SetState(Literal.WorkStates.Unchanged);
+        } // mnuSetUnchanged_Click
+
+        private void mnuSetIgnored_Click(object sender, EventArgs e)
+        {
+            SetState(Literal.WorkStates.Ignored);
+        } // mnuSetIgnored_Click
+
+        private void mnuWorkInProgress_Click(object sender, EventArgs e)
+        {
+            SetState(Literal.WorkStates.WorkInProgress);
+        } // mnuWorkInProgress_Click
+
+        private void mnuSetCompleted_Click(object sender, EventArgs e)
+        {
+            SetState(Literal.WorkStates.Completed);
+        } // mnuSetCompleted_Click
     } // EditWindow constructor
 } // namespace

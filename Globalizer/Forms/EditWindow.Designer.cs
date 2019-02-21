@@ -39,13 +39,21 @@
             this.clnString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnState = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuSetStatus = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSetUnchanged = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSetIgnored = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuWorkInProgress = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSetCompleted = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitter)).BeginInit();
             this.splitter.Panel1.SuspendLayout();
             this.splitter.Panel2.SuspendLayout();
             this.splitter.SuspendLayout();
             this.tableContents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEdit)).BeginInit();
+            this.mnuContext.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitter
@@ -108,6 +116,7 @@
             this.clnString,
             this.clnID,
             this.clnState});
+            this.dgvEdit.ContextMenuStrip = this.mnuContext;
             this.dgvEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvEdit.Location = new System.Drawing.Point(3, 103);
             this.dgvEdit.Name = "dgvEdit";
@@ -153,10 +162,66 @@
             this.clnState.HeaderText = "State";
             this.clnState.Name = "clnState";
             // 
-            // contextMenuStrip1
+            // mnuContext
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 26);
+            this.mnuContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuSelectAll,
+            this.mnuSeparator1,
+            this.mnuSetStatus});
+            this.mnuContext.Name = "contextMenuStrip1";
+            this.mnuContext.Size = new System.Drawing.Size(165, 54);
+            // 
+            // mnuSelectAll
+            // 
+            this.mnuSelectAll.Name = "mnuSelectAll";
+            this.mnuSelectAll.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.mnuSelectAll.Size = new System.Drawing.Size(164, 22);
+            this.mnuSelectAll.Text = "Select &All";
+            this.mnuSelectAll.Click += new System.EventHandler(this.mnuSelectAll_Click);
+            // 
+            // mnuSeparator1
+            // 
+            this.mnuSeparator1.Name = "mnuSeparator1";
+            this.mnuSeparator1.Size = new System.Drawing.Size(161, 6);
+            // 
+            // mnuSetStatus
+            // 
+            this.mnuSetStatus.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuSetUnchanged,
+            this.mnuSetIgnored,
+            this.mnuWorkInProgress,
+            this.mnuSetCompleted});
+            this.mnuSetStatus.Name = "mnuSetStatus";
+            this.mnuSetStatus.Size = new System.Drawing.Size(164, 22);
+            this.mnuSetStatus.Text = "Set status";
+            // 
+            // mnuSetUnchanged
+            // 
+            this.mnuSetUnchanged.Name = "mnuSetUnchanged";
+            this.mnuSetUnchanged.Size = new System.Drawing.Size(163, 22);
+            this.mnuSetUnchanged.Text = "Unchanged";
+            this.mnuSetUnchanged.Click += new System.EventHandler(this.mnuSetUnchanged_Click);
+            // 
+            // mnuSetIgnored
+            // 
+            this.mnuSetIgnored.Name = "mnuSetIgnored";
+            this.mnuSetIgnored.Size = new System.Drawing.Size(163, 22);
+            this.mnuSetIgnored.Text = "Ignored";
+            this.mnuSetIgnored.Click += new System.EventHandler(this.mnuSetIgnored_Click);
+            // 
+            // mnuWorkInProgress
+            // 
+            this.mnuWorkInProgress.Name = "mnuWorkInProgress";
+            this.mnuWorkInProgress.Size = new System.Drawing.Size(163, 22);
+            this.mnuWorkInProgress.Text = "Work in progress";
+            this.mnuWorkInProgress.Click += new System.EventHandler(this.mnuWorkInProgress_Click);
+            // 
+            // mnuSetCompleted
+            // 
+            this.mnuSetCompleted.Name = "mnuSetCompleted";
+            this.mnuSetCompleted.Size = new System.Drawing.Size(163, 22);
+            this.mnuSetCompleted.Text = "Completed";
+            this.mnuSetCompleted.Click += new System.EventHandler(this.mnuSetCompleted_Click);
             // 
             // EditWindow
             // 
@@ -166,12 +231,14 @@
             this.Controls.Add(this.splitter);
             this.Name = "EditWindow";
             this.Text = "EditWindow";
+            this.Activated += new System.EventHandler(this.EditWindow_Activated);
             this.splitter.Panel1.ResumeLayout(false);
             this.splitter.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitter)).EndInit();
             this.splitter.ResumeLayout(false);
             this.tableContents.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEdit)).EndInit();
+            this.mnuContext.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -188,6 +255,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clnString;
         private System.Windows.Forms.DataGridViewTextBoxColumn clnID;
         private System.Windows.Forms.DataGridViewComboBoxColumn clnState;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip mnuContext;
+        private System.Windows.Forms.ToolStripMenuItem mnuSelectAll;
+        private System.Windows.Forms.ToolStripSeparator mnuSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem mnuSetStatus;
+        private System.Windows.Forms.ToolStripMenuItem mnuSetUnchanged;
+        private System.Windows.Forms.ToolStripMenuItem mnuSetIgnored;
+        private System.Windows.Forms.ToolStripMenuItem mnuWorkInProgress;
+        private System.Windows.Forms.ToolStripMenuItem mnuSetCompleted;
     }
 }

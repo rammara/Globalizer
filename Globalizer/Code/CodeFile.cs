@@ -20,13 +20,22 @@ namespace Globalizer.Code
         public string FullPath { get; protected set; }
         public string Hash { get => this.m_hash; }
         
-        public CodeFile(string file, Encoding encoding = null)
+        public CodeFile(string file, Encoding encoding = null, IEnumerable<Literal> literals = null, string storedhash = null)
         {
             this.FullPath = file;
-            this.m_id_prefix = System.IO.Path.GetFileNameWithoutExtension(file);
-            this.m_hash = MakeHash(file);
-            this.m_literals = new List<Literal>();
-            this.Scan(encoding);
+            this.m_id_prefix = Path.GetFileNameWithoutExtension(file).Replace('.', '_');            
+            if (null == literals)
+            {
+                this.m_hash = MakeHash(file);
+                this.m_literals = new List<Literal>();
+                this.Scan(encoding);
+            }
+            else
+            {
+                this.m_hash = storedhash ?? MakeHash(file);
+                this.m_literals = literals.ToList();
+                foreach (Literal l in this.m_literals) l.SetOwner(this);
+            }
         } // public constructor
 
         protected void Scan(Encoding encoding = null)

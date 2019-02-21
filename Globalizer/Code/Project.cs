@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.IO;
 using System.Resources;
+using System.Xml.XPath;
 
 namespace Globalizer.Code
 {
@@ -14,15 +15,16 @@ namespace Globalizer.Code
     {
         private List<CodeFile> m_files;
         public string Name { get; set; }
+        public string SavedFilename { get; set; }
         public string Path { get; protected set; }
         public string RegExp { get; set; }
         public string FileMask { get; set; }
         public Encoding Encoding { get; set; }
         public Guid Identity { get; protected set; }
         public Dictionary<string, string> CommonIDs { get; protected set; }
-        public Project(string name, string path)
+        public Project(string name, string path, Guid? identity = null)
         {
-            this.Identity = Guid.NewGuid(); // for identification
+            if (null == identity) this.Identity = Guid.NewGuid(); else this.Identity = (Guid)identity; // for identification
             this.Name = name;
             this.Path = path;
             this.CommonIDs = new Dictionary<string, string>();
@@ -83,8 +85,27 @@ namespace Globalizer.Code
             } // foreach
         } // AnalyzeFrequencies
 
+        public void GenerateResx(string filename)
+        {
+            using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read))
+            {
+                using (ResXResourceWriter wrt = new ResXResourceWriter(fs))
+                {
+                    foreach (var file in this.m_files)
+                    {
+                        foreach(var literal in file)
+                        {
+                            wrt.AddResource(literal.Id, literal.Value.Substring(1, literal.Value.Length - 2));
+                        } // foreach literal
+                    } // foreach file
+                    wrt.Generate();
+                } // using wrt
+            } // using fs                
+        } // Generate Resx
+
         public void Save(string filename)
         {
+            this.SavedFilename = filename;
             if (File.Exists(filename)) File.Delete(filename);
             using (FileStream fs = new FileStream(filename, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             {
@@ -111,7 +132,7 @@ namespace Globalizer.Code
                 entry.Add(new XElement("value") { Value = this.CommonIDs[key] });
                 commonKeys.Add(entry);
             } // foreach common key
-
+            rootElem.Add(commonKeys);
 
             XElement filesCollection = new XElement("files");
             filesCollection.Add(new XAttribute("count", this.m_files.Count().ToString()));
@@ -131,6 +152,7 @@ namespace Globalizer.Code
                     literalElem.Add(new XElement("len") { Value = literal.Length.ToString() });
                     literalElem.Add(new XElement("id") { Value = literal.Id });
                     literalElem.Add(new XElement("value") { Value = literal.Value });
+                    literalElem.Add(new XElement("status") { Value = Enum.GetName(typeof(Literal.WorkStates), literal.WorkState) });
                     literalsCollection.Add(literalElem);
                 }
                 fileElem.Add(literalsCollection);
@@ -141,6 +163,60 @@ namespace Globalizer.Code
             doc.Add(rootElem);
             doc.Save(stream);
         } // Save
+
+        public static Project Load(string filename)
+        {
+            XDocument doc = XDocument.Load(filename);
+            XElement root = doc.XPathSelectElement("/project");
+            string name = root.Attribute("name").Value;
+            Guid identity = Guid.Parse(root.Attribute("identity").Value);
+            if (Program.MainWindow.ChildWindows.ContainsKey(identity))
+            {
+                Program.MainWindow.ActivateChild(identity);
+                return null;
+            }
+            string path = root.XPathSelectElement("path").Value;
+
+            Project project = new Project(name, path, identity)
+            {
+                RegExp = root.XPathSelectElement("pattern").Value,
+                FileMask = root.XPathSelectElement("searchmask").Value,
+                Encoding = (null == root.XPathSelectElement("codepage") ?
+                    null : Encoding.GetEncoding(int.Parse(root.XPathSelectElement("codepage").Value))),
+                m_files = new List<CodeFile>()
+            };
+
+            IEnumerable<XElement> commoncollection = root.XPathSelectElements("common/entry");
+            project.CommonIDs = commoncollection.ToDictionary(
+                                    item => item.Descendants("key").FirstOrDefault().Value,
+                                    item => item.Descendants("value").FirstOrDefault().Value);
+
+            IEnumerable<XElement> files = root.XPathSelectElements("files/file");
+            foreach(XElement fElem in files)
+            {
+                string filepath = fElem.Descendants("path").FirstOrDefault().Value;
+                string hash = fElem.Descendants("hash").FirstOrDefault().Value;
+                IEnumerable<XElement> literalElems = fElem.XPathSelectElements("literals/literal");
+                List<Literal> literals = new List<Literal>();
+                foreach (XElement lElem in literalElems)
+                {
+                    Literal newLiteral = new Literal(
+                        lElem.Descendants("id").FirstOrDefault().Value,
+                        int.Parse(lElem.Descendants("line").FirstOrDefault().Value),
+                        int.Parse(lElem.Descendants("pos").FirstOrDefault().Value),
+                        int.Parse(lElem.Descendants("len").FirstOrDefault().Value),
+                        lElem.Descendants("value").FirstOrDefault().Value,
+                        lElem.Attributes("interpolated").FirstOrDefault()?.Value == "true"
+                        )
+                    { WorkState = (Literal.WorkStates)Enum.Parse(typeof(Literal.WorkStates), lElem.Descendants("status").FirstOrDefault().Value)};
+                    
+                    literals.Add(newLiteral);
+                } // foreach
+                CodeFile file = new CodeFile(filepath, project.Encoding, literals, hash);
+                project.m_files.Add(file);
+            } // foreach
+            return project;
+        } // Load
 
         #region "IEnumerable implementation"
         public IEnumerator<CodeFile> GetEnumerator()

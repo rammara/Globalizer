@@ -39,20 +39,22 @@
             this.mnuProjectExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTools = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuToolsSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuToolsSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuToolsGenerateResx = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuToolsEditCommonIDs = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // mnuStripMain
             // 
-            resources.ApplyResources(this.mnuStripMain, "mnuStripMain");
             this.mnuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuProject,
             this.mnuTools});
+            resources.ApplyResources(this.mnuStripMain, "mnuStripMain");
             this.mnuStripMain.Name = "mnuStripMain";
             // 
             // mnuProject
             // 
-            resources.ApplyResources(this.mnuProject, "mnuProject");
             this.mnuProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuProjectNew,
             this.mnuProjectOpen,
@@ -61,54 +63,75 @@
             this.mnuProjectDelim1,
             this.mnuProjectExit});
             this.mnuProject.Name = "mnuProject";
+            resources.ApplyResources(this.mnuProject, "mnuProject");
             // 
             // mnuProjectNew
             // 
-            resources.ApplyResources(this.mnuProjectNew, "mnuProjectNew");
             this.mnuProjectNew.Name = "mnuProjectNew";
+            resources.ApplyResources(this.mnuProjectNew, "mnuProjectNew");
             this.mnuProjectNew.Click += new System.EventHandler(this.mnuProjectNew_Click);
             // 
             // mnuProjectOpen
             // 
-            resources.ApplyResources(this.mnuProjectOpen, "mnuProjectOpen");
             this.mnuProjectOpen.Name = "mnuProjectOpen";
+            resources.ApplyResources(this.mnuProjectOpen, "mnuProjectOpen");
             this.mnuProjectOpen.Click += new System.EventHandler(this.mnuProjectOpen_Click);
             // 
             // mnuProjectSave
             // 
-            resources.ApplyResources(this.mnuProjectSave, "mnuProjectSave");
             this.mnuProjectSave.Name = "mnuProjectSave";
+            resources.ApplyResources(this.mnuProjectSave, "mnuProjectSave");
             this.mnuProjectSave.Click += new System.EventHandler(this.mnuProjectSave_Click);
             // 
             // mnuProjectSaveAs
             // 
-            resources.ApplyResources(this.mnuProjectSaveAs, "mnuProjectSaveAs");
             this.mnuProjectSaveAs.Name = "mnuProjectSaveAs";
+            resources.ApplyResources(this.mnuProjectSaveAs, "mnuProjectSaveAs");
             this.mnuProjectSaveAs.Click += new System.EventHandler(this.mnuProjectSaveAs_Click);
             // 
             // mnuProjectDelim1
             // 
-            resources.ApplyResources(this.mnuProjectDelim1, "mnuProjectDelim1");
             this.mnuProjectDelim1.Name = "mnuProjectDelim1";
+            resources.ApplyResources(this.mnuProjectDelim1, "mnuProjectDelim1");
             // 
             // mnuProjectExit
             // 
-            resources.ApplyResources(this.mnuProjectExit, "mnuProjectExit");
             this.mnuProjectExit.Name = "mnuProjectExit";
+            resources.ApplyResources(this.mnuProjectExit, "mnuProjectExit");
             this.mnuProjectExit.Click += new System.EventHandler(this.mnuProjectExit_Click);
             // 
             // mnuTools
             // 
-            resources.ApplyResources(this.mnuTools, "mnuTools");
             this.mnuTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuToolsSettings});
+            this.mnuToolsSettings,
+            this.mnuToolsSeparator1,
+            this.mnuToolsGenerateResx,
+            this.mnuToolsEditCommonIDs});
             this.mnuTools.Name = "mnuTools";
+            resources.ApplyResources(this.mnuTools, "mnuTools");
             // 
             // mnuToolsSettings
             // 
-            resources.ApplyResources(this.mnuToolsSettings, "mnuToolsSettings");
             this.mnuToolsSettings.Name = "mnuToolsSettings";
+            resources.ApplyResources(this.mnuToolsSettings, "mnuToolsSettings");
             this.mnuToolsSettings.Click += new System.EventHandler(this.mnuToolsSettings_Click);
+            // 
+            // mnuToolsSeparator1
+            // 
+            this.mnuToolsSeparator1.Name = "mnuToolsSeparator1";
+            resources.ApplyResources(this.mnuToolsSeparator1, "mnuToolsSeparator1");
+            // 
+            // mnuToolsGenerateResx
+            // 
+            this.mnuToolsGenerateResx.Name = "mnuToolsGenerateResx";
+            resources.ApplyResources(this.mnuToolsGenerateResx, "mnuToolsGenerateResx");
+            this.mnuToolsGenerateResx.Click += new System.EventHandler(this.mnuToolsGenerateResx_Click);
+            // 
+            // mnuToolsEditCommonIDs
+            // 
+            this.mnuToolsEditCommonIDs.Name = "mnuToolsEditCommonIDs";
+            resources.ApplyResources(this.mnuToolsEditCommonIDs, "mnuToolsEditCommonIDs");
+            this.mnuToolsEditCommonIDs.Click += new System.EventHandler(this.mnuToolsEditCommonIDs_Click);
             // 
             // MainWindow
             // 
@@ -137,6 +160,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnuTools;
         private System.Windows.Forms.ToolStripMenuItem mnuToolsSettings;
         private System.Windows.Forms.MenuStrip mnuStripMain;
+        private System.Windows.Forms.ToolStripSeparator mnuToolsSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem mnuToolsGenerateResx;
+        private System.Windows.Forms.ToolStripMenuItem mnuToolsEditCommonIDs;
     }
 }
 

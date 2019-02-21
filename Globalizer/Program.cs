@@ -16,7 +16,10 @@ namespace Globalizer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Globalizer.Forms.MainWindow());
+            MainWindow = new Globalizer.Forms.MainWindow();
+            Application.Run(MainWindow);
         }
+
+        internal static Globalizer.Forms.MainWindow MainWindow;
     }
 }

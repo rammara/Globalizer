@@ -48,7 +48,14 @@
     <Compile Include="Code\CodeFile.cs" />
     <Compile Include="Code\Globals.cs" />
     <Compile Include="Code\Literal.cs" />
+    <Compile Include="Code\Processor.cs" />
     <Compile Include="Code\Project.cs" />
+    <Compile Include="Forms\CommonIdsEditWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CommonIdsEditWindow.Designer.cs">
+      <DependentUpon>CommonIdsEditWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +77,9 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\CommonIdsEditWindow.resx">
+      <DependentUpon>CommonIdsEditWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditWindow.resx">
       <DependentUpon>EditWindow.cs</DependentUpon>
     </EmbeddedResource>
